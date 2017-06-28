@@ -34,12 +34,14 @@ class UsersController {
 
   function __construct() 
   {
-    $this->users = Uow::get()->model(\App\User::class);
+    $this->user = Uow::get()->model(\App\User::class);
   }
   
   function store(Request $request)
   {
-    $this->users->create($request->all());
+    $this->user->create($request->all());
+    
+    // can commit here in the controller, or create a middleware where you can commit it there
   }
 
 }
