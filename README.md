@@ -1,6 +1,25 @@
 # laravel-uow
 Laravel Unit of Work
 
+### Introduction
+
+Laravel developers are fond of using `$model->save()`, but when they have to deal with lots of models, see how many save queries which it will perform.
+So I came up with the idea of creating  UOW, that will address this issue.
+
+By using
+```php
+Uow::get()->user()->save($user);
+Uow::get()->user()->save($anotherUser);
+Uow::get()->user()->save($andAnotherUser);
+```
+this can result to only one insert (or update) query which is faster and more performance efficient
+
+Same with:
+```php
+Uow::get()->user()->delete($user);
+Uow::get()->user()->delete($anotherUser);
+Uow::get()->user()->delete($andAnotherUser);
+```
 
 ### Sample Usages
 
@@ -66,4 +85,13 @@ Uow::get()->user()->delete($user);
 
 Uow::get('another_uow');
 Uow::get('another_uow')->commit(); // only commits record changes happened in another_uow
+```
+
+### Using Model Helper Method
+
+We can also attach a helper method to models, so we can do this:
+
+```php
+$user->uow()->save();
+$user->uow()->delete();
 ```
