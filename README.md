@@ -70,8 +70,10 @@ class UsersController {
 ### Register alias
 
 ```php
-// Alias user can be registered so it can be accessed like this:
+// Alias user can be registered like this
+Uow::alias('user', \App\User::class);
 
+// So it can be accessed like this
 Uow::get()->user()->insert($user);
 Uow::get()->user()->create($user);
 Uow::get()->user()->update($user);
